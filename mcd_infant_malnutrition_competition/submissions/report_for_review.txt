@@ -1,0 +1,156 @@
+
+====================================================================================================
+1. ENTORNO
+====================================================================================================
+Python 3.11.17 | Windows-10-10.0.26200-SP0 | CPUs=16
+numpy 2.3.5 | pandas 2.3.3 | scikit-learn 1.9.1 | scipy 1.16.3
+SMOKE_TEST=False | SEED=42 | tiempo total=1.1 min
+Tiempos (s): {'search_LogReg': 2.9, 'search_KNN': 19.0, 'search_MLP': 22.4, 'search_HGB': 3.4, 'eval_Dummy': 0.8, 'eval_LogReg': 1.1, 'eval_KNN': 7.7, 'eval_MLP': 4.8, 'eval_HGB': 2.8}
+
+====================================================================================================
+2. DATOS
+====================================================================================================
+Train (70000, 6) | Test (30000, 6) | prevalencia y=1 = 0.10013
+Duplicados (X,y) eliminados = 80 | filas usadas = 69920 | línea base = 0.89977
+                               train     test
+peso_kg NaN %                4.95571  4.94333
+talla_cm NaN %              10.07000  9.83667
+edad < 0 %                   5.60143  5.55000
+edad > 24 %                  4.51857  4.44333
+peso fuera [1, 20] kg %      1.19143  1.36000
+talla fuera [40, 100] cm %   0.02286  0.01333
+duplicados exactos         100.00000 13.00000
+
+P(y=1) por categoría:
+sexo {'F': {'mean': 0.10036, 'size': 35185}, 'M': {'mean': 0.0999, 'size': 34815}}
+region {'Amazonía': {'mean': 0.01812, 'size': 17606}, 'Costa': {'mean': 0.12513, 'size': 17534}, 'Insular': {'mean': 0.12836, 'size': 17497}, 'Sierra': {'mean': 0.12959, 'size': 17363}}
+nivel_educacion_madre {'Primaria': {'mean': 0.10592, 'size': 24584}, 'Secundaria': {'mean': 0.10521, 'size': 31488}, 'Sin escolaridad': {'mean': 0.00087, 'size': 3437}, 'Superior': {'mean': 0.1038, 'size': 10491}}
+edad_bin {Interval(-13, -1, closed='right'): {'mean': 0.02601, 'size': 3921}, Interval(-1, 0, closed='right'): {'mean': 0.11158, 'size': 2626}, Interval(0, 6, closed='right'): {'mean': 0.10214, 'size': 15528}, Interval(6, 12, closed='right'): {'mean': 0.10692, 'size': 15676}, Interval(12, 18, closed='right'): {'mean': 0.09942, 'size': 15409}, Interval(18, 24, closed='right'): {'mean': 0.10836, 'size': 13677}, Interval(24, 30, closed='right'): {'mean': 0.10686, 'size': 3163}}
+
+AUC adversarial train vs test = 0.50239
+
+====================================================================================================
+3. BÚSQUEDA DE HIPERPARÁMETROS (todas las configuraciones, CV 5-fold)
+====================================================================================================
+
+--- LogReg ---
+            params  mean_test_score  std_test_score  rank_test_score
+{'model__C': 0.01}          0.89977         0.00004                1
+ {'model__C': 0.1}          0.89977         0.00004                1
+ {'model__C': 1.0}          0.89977         0.00004                1
+{'model__C': 10.0}          0.89977         0.00004                1
+
+--- KNN ---
+                                                   params  mean_test_score  std_test_score  rank_test_score
+ {'model__n_neighbors': 101, 'model__weights': 'uniform'}          0.89977         0.00004                1
+  {'model__n_neighbors': 51, 'model__weights': 'uniform'}          0.89977         0.00004                1
+ {'model__n_neighbors': 301, 'model__weights': 'uniform'}          0.89977         0.00004                1
+ {'model__n_neighbors': 201, 'model__weights': 'uniform'}          0.89977         0.00004                1
+  {'model__n_neighbors': 15, 'model__weights': 'uniform'}          0.89960         0.00010                5
+{'model__n_neighbors': 301, 'model__weights': 'distance'}          0.89893         0.00018                6
+{'model__n_neighbors': 201, 'model__weights': 'distance'}          0.89883         0.00014                7
+{'model__n_neighbors': 101, 'model__weights': 'distance'}          0.89860         0.00017                8
+ {'model__n_neighbors': 51, 'model__weights': 'distance'}          0.89821         0.00019                9
+ {'model__n_neighbors': 15, 'model__weights': 'distance'}          0.89468         0.00044               10
+   {'model__n_neighbors': 5, 'model__weights': 'uniform'}          0.88864         0.00112               11
+  {'model__n_neighbors': 5, 'model__weights': 'distance'}          0.87520         0.00200               12
+
+--- MLP ---
+                                                                                                   params  mean_test_score  std_test_score  rank_test_score
+      {'model__alpha': 0.0001, 'model__hidden_layer_sizes': (64, 32), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+     {'model__alpha': 0.0001, 'model__hidden_layer_sizes': (128, 64), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+{'model__alpha': 0.0001, 'model__hidden_layer_sizes': (256, 128, 64), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+       {'model__alpha': 0.001, 'model__hidden_layer_sizes': (64, 32), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+      {'model__alpha': 0.001, 'model__hidden_layer_sizes': (128, 64), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+ {'model__alpha': 0.001, 'model__hidden_layer_sizes': (256, 128, 64), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+        {'model__alpha': 0.01, 'model__hidden_layer_sizes': (64, 32), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+       {'model__alpha': 0.01, 'model__hidden_layer_sizes': (128, 64), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+  {'model__alpha': 0.01, 'model__hidden_layer_sizes': (256, 128, 64), 'model__learning_rate_init': 0.001}          0.89977         0.00004                1
+
+--- HGB ---
+                                                                                     params  mean_test_score  std_test_score  rank_test_score
+ {'model__learning_rate': 0.03, 'model__max_leaf_nodes': 15, 'model__min_samples_leaf': 20}          0.89977         0.00004                1
+{'model__learning_rate': 0.03, 'model__max_leaf_nodes': 15, 'model__min_samples_leaf': 100}          0.89977         0.00004                1
+ {'model__learning_rate': 0.03, 'model__max_leaf_nodes': 31, 'model__min_samples_leaf': 20}          0.89977         0.00004                1
+{'model__learning_rate': 0.03, 'model__max_leaf_nodes': 31, 'model__min_samples_leaf': 100}          0.89977         0.00004                1
+  {'model__learning_rate': 0.1, 'model__max_leaf_nodes': 15, 'model__min_samples_leaf': 20}          0.89977         0.00004                1
+ {'model__learning_rate': 0.1, 'model__max_leaf_nodes': 15, 'model__min_samples_leaf': 100}          0.89977         0.00004                1
+  {'model__learning_rate': 0.1, 'model__max_leaf_nodes': 31, 'model__min_samples_leaf': 20}          0.89977         0.00004                1
+ {'model__learning_rate': 0.1, 'model__max_leaf_nodes': 31, 'model__min_samples_leaf': 100}          0.89977         0.00004                1
+
+====================================================================================================
+4. MEJORES CONFIGURACIONES
+====================================================================================================
+Dummy: DummyClassifier(strategy='most_frequent')
+LogReg: LogisticRegression(C=0.01, max_iter=2000)
+KNN: KNeighborsClassifier(n_jobs=1, n_neighbors=51)
+MLP: MLPClassifier(early_stopping=True, hidden_layer_sizes=(64, 32), max_iter=300,
+              random_state=42)
+HGB: HistGradientBoostingClassifier(learning_rate=0.03, max_leaf_nodes=15,
+                               random_state=42)
+
+====================================================================================================
+5. EVALUACIÓN CV 5x3 Y PRUEBAS ESTADÍSTICAS
+====================================================================================================
+        acc_media  acc_std  Δ vs Dummy  p (t corregido)  p (McNemar)  AUC OOF  Brier OOF  % pred=1  max P(y=1)
+modelo                                                                                                        
+Dummy     0.89977  0.00004     0.00000          1.00000      1.00000  0.50000    0.10023   0.00000     0.00000
+LogReg    0.89977  0.00004     0.00000          1.00000      1.00000  0.65018    0.08701   0.00000     0.24815
+KNN       0.89977  0.00004     0.00000          1.00000      1.00000  0.64624    0.08862   0.00000     0.39216
+MLP       0.89977  0.00004     0.00000          1.00000      1.00000  0.64799    0.08731   0.00000     0.24578
+HGB       0.89977  0.00004     0.00000          1.00000      1.00000  0.65010    0.08684   0.00000     0.35563
+
+Accuracy por fold (15 folds):
+     Dummy  LogReg     KNN     MLP     HGB
+0  0.89981 0.89981 0.89981 0.89981 0.89981
+1  0.89981 0.89981 0.89981 0.89981 0.89981
+2  0.89974 0.89974 0.89974 0.89974 0.89974
+3  0.89974 0.89974 0.89974 0.89974 0.89974
+4  0.89974 0.89974 0.89974 0.89974 0.89974
+5  0.89981 0.89981 0.89981 0.89981 0.89981
+6  0.89981 0.89981 0.89981 0.89981 0.89981
+7  0.89974 0.89974 0.89974 0.89974 0.89974
+8  0.89974 0.89974 0.89974 0.89974 0.89974
+9  0.89974 0.89974 0.89974 0.89974 0.89974
+10 0.89981 0.89981 0.89981 0.89981 0.89981
+11 0.89981 0.89981 0.89981 0.89981 0.89981
+12 0.89974 0.89974 0.89974 0.89974 0.89974
+13 0.89974 0.89974 0.89974 0.89974 0.89974
+14 0.89974 0.89974 0.89974 0.89974 0.89974
+
+Cuantiles de P(y=1) OOF por modelo:
+        Dummy  LogReg     KNN     MLP     HGB
+p50   0.00000 0.12983 0.09804 0.12089 0.13677
+p90   0.00000 0.14227 0.19608 0.14974 0.14015
+p99   0.00000 0.15092 0.25490 0.16930 0.16659
+p99.9 0.00000 0.15652 0.29412 0.18739 0.20590
+max   0.00000 0.24815 0.39216 0.24578 0.35563
+
+Matrices de confusión OOF (umbral 0.5) [[TN, FP], [FN, TP]]:
+Dummy: [[62912, 0], [7008, 0]]
+LogReg: [[62912, 0], [7008, 0]]
+KNN: [[62912, 0], [7008, 0]]
+MLP: [[62912, 0], [7008, 0]]
+HGB: [[62912, 0], [7008, 0]]
+
+====================================================================================================
+6. DECISIÓN
+====================================================================================================
+Mejor modelo no trivial = LogReg | significativo = False | ENVÍO = Dummy
+Predicciones test: ceros=30000 unos=0 | P(y=1) test media=0.00000 máx=0.00000
+LogReg en test: unos=0 | máx P(y=1)=0.17573 | acuerdo con envío=1.00000
+
+====================================================================================================
+7. ARCHIVO DE ENVÍO
+====================================================================================================
+Ruta = D:\mcd\mcd_Fundamentos_AI\mcd_infant_malnutrition_competition\submissions\submission_final.csv
+Filas = 30000 | columnas = ['ID', 'alerta_desnutricion'] | dtypes = {'ID': 'int64', 'alerta_desnutricion': 'int64'}
+Distribución = {0: 30000}
+MD5 = 3ad126b70bc6e08a2de9169f3d741d88
+Primeras filas:
+ ID  alerta_desnutricion
+  1                    0
+  2                    0
+  3                    0
+  4                    0
+  5                    0
