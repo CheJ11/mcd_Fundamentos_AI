@@ -1,0 +1,142 @@
+Caltech-101/Faces: 435 disponibles | seleccionadas: 60 | nuevas copiadas a datasets\fondos: 0
+LFW: ya extraídos (60 en datasets\fondos, 15 en datasets\prueba\rostros)
+BACKGROUND_Google -> prueba: 15 existentes 
+cv2 5.0.0 | detector de rostros: YuNet | recorte de rostro: True
+Reporte generado: 2026-11-09 20:22:58
+
+=== ESTUDIANTE: datasets\fotos ===
+archivos: 65 | legibles: 65 | extensiones: {'.jpg': 65}
+ilegibles: []
+duplicados exactos: []
+alto  min/mediana/max: 176/1080/3264
+ancho min/mediana/max: 132/1920/3264
+orientación: {'vertical': 18, 'horizontal': 47} | en escala de grises: 0
+rostros detectados (YuNet, aprox.): 0 -> 0 | 1 -> 65 | >=2 -> 0
+imágenes sin rostro detectado (0): []
+imágenes cuyo rostro se pierde con el recorte cuadrado (0): []
+
+=== FONDO: datasets\fondos ===
+archivos: 280 | legibles: 280 | extensiones: {'.jpg': 274, '.jpeg': 6}
+ilegibles: []
+duplicados exactos: []
+alto  min/mediana/max: 141/298/5068
+ancho min/mediana/max: 140/337/3481
+orientación: {'vertical': 60, 'horizontal': 137, 'cuadrada': 83} | en escala de grises: 16
+composición por origen: {'otros': 10, 'cuarto vacío (webcam)': 3, 'rostros Caltech': 60, 'BACKGROUND_Google': 147, 'rostros LFW': 60}
+rostros detectados (YuNet, aprox.): 0 -> 128 | 1 -> 126 | >=2 -> 26
+imágenes sin rostro detectado (128): ['WIN_20261108_10_28_14_Pro.jpg', 'WIN_20261108_10_28_23_Pro.jpg', 'WIN_20261108_10_28_37_Pro.jpg', 'image_0193.jpg', 'image_0194.jpg', 'image_0195.jpg', 'image_0196.jpg', 'image_0198.jpg', 'image_0199.jpg', 'image_0200.jpg']
+imágenes cuyo rostro se pierde con el recorte cuadrado (2): ['image_0245.jpg', 'image_0271.jpg']
+
+=== Verificaciones cruzadas ===
+imágenes repetidas entre fotos y fondos (no debe haber): []
+BACKGROUND_Google: 468 imágenes | fondos que provienen de ahí: 147 de 280
+archive.zip: 9145 archivos, 132.2 MB descomprimido | primeros niveles: {'caltech-101/airplanes': 800, 'caltech-101/Motorbikes': 798, 'caltech-101/BACKGROUND_Google': 468, 'caltech-101/Faces': 435, 'caltech-101/Faces_easy': 435, 'caltech-101/watch': 239, 'caltech-101/Leopards': 200, 'caltech-101/bonsai': 128, 'caltech-101/car_side': 123, 'caltech-101/ketch': 114}
+carpeta de pruebas: {'fondo': 15, 'persona': 4, 'rostros': 25, 'webcam': 8}
+fondos usados por origen: {'otros': 10, 'cuarto vacío (webcam)': 3, 'rostros Caltech': 60, 'BACKGROUND_Google': 80, 'rostros LFW': 60}
+recorte de rostro aplicado -> estudiante: 65/65
+recorte de rostro aplicado -> fondos BACKGROUND_Google     : 12/80
+recorte de rostro aplicado -> fondos cuarto vacío (webcam) : 0/3
+recorte de rostro aplicado -> fondos otros                 : 10/10
+recorte de rostro aplicado -> fondos rostros Caltech       : 60/60
+recorte de rostro aplicado -> fondos rostros LFW           : 60/60
+
+images: (278, 224, 224, 3) | labels: (278,) | estudiante/fondo: [ 65 213]
+fit  : 177 imágenes | fondo/estudiante: [136  41]
+val  : 45 imágenes | fondo/estudiante: [34 11]
+test : 56 imágenes | fondo/estudiante: [43 13]
+class_weight: {'Fondo': 0.651, 'Jose': 2.159}
+
+=== Modelo cargado desde modelo_estudiante_fondo.keras (sin reentrenar) ===
+Loss: 0.12859998643398285
+Accuracy: 0.9642857313156128
+
+=== Evaluación en test (TAU = 0.75) ===
+matriz de confusión (filas = real, columnas = predicho) [Fondo, estudiante]:
+[[41  2]
+ [ 0 13]]
+              precision    recall  f1-score   support
+
+       Fondo      1.000     0.953     0.976        43
+        Jose      0.867     1.000     0.929        13
+
+    accuracy                          0.964        56
+   macro avg      0.933     0.977     0.952        56
+weighted avg      0.969     0.964     0.965        56
+
+errores (ruta | real | P(estudiante)):
+  datasets\fondos\caltech_faces_image_0003.jpg | Fondo | 0.988
+  datasets\fondos\caltech_faces_image_0300.jpg | Fondo | 0.850
+P(estudiante) de cada foto del estudiante en test: ['20240316_085101.jpg=0.958', '20230714_081904.jpg=0.985', 'WIN_20261108_11_46_18_Pro.jpg=0.988', '20240611_121622~2.jpg=0.988', '20230823_081218.jpg=0.995', 'WIN_20261108_10_20_26_Pro.jpg=0.997', 'WIN_20261108_10_09_22_Pro.jpg=0.997', 'WIN_20261108_10_10_53_Pro.jpg=0.998', 'WIN_20261108_10_09_17_Pro.jpg=0.998', 'WIN_20261108_10_09_25_Pro.jpg=0.999', 'WIN_20261108_10_20_39_Pro.jpg=0.999', 'WIN_20261108_11_46_46_Pro.jpg=1.000', 'WIN_20261108_11_43_51_Pro.jpg=1.000']
+5 fondos con mayor P(estudiante) en test: ['caltech_faces_image_0003.jpg=0.988', 'caltech_faces_image_0300.jpg=0.850', 'lfw_Sinead_OConnor_0001.jpg=0.408', 'caltech_faces_image_0046.jpg=0.097', 'Diego_Luna-4406.jpg=0.031']
+P(estudiante) en fotos del estudiante: min=0.958 mediana=0.997
+P(estudiante) en fondos:               max=0.988 mediana=0.000
+   fondos de origen BACKGROUND_Google     : n= 15 | P(estudiante) max=0.014 media=0.001
+   fondos de origen cuarto vacío (webcam) : n=  1 | P(estudiante) max=0.000 media=0.000
+   fondos de origen otros                 : n=  1 | P(estudiante) max=0.031 media=0.031
+   fondos de origen rostros Caltech       : n= 15 | P(estudiante) max=0.988 media=0.132
+   fondos de origen rostros LFW           : n= 11 | P(estudiante) max=0.408 media=0.041
+datasets\prueba\webcam\webcam_20261108_113023.jpg [[7.5043325e-05 9.9992490e-01]] Jose
+datasets\prueba\webcam\webcam_20261109_202330.jpg [[0.00676113 0.9932388 ]] Jose
+
+=== Pruebas (TAU = 0.75) ===
+webcam   | webcam_20261108_111556.jpg                    | P(estudiante)=0.990 -> Jose         OK
+webcam   | webcam_20261108_113023.jpg                    | P(estudiante)=1.000 -> Jose         OK
+webcam   | webcam_20261108_120222.jpg                    | P(estudiante)=0.997 -> Jose         OK
+webcam   | webcam_20261108_121016.jpg                    | P(estudiante)=0.993 -> Jose         OK
+webcam   | webcam_20261108_185501.jpg                    | P(estudiante)=0.999 -> Jose         OK
+webcam   | webcam_20261109_192752.jpg                    | P(estudiante)=1.000 -> Jose         OK
+webcam   | webcam_20261109_201234.jpg                    | P(estudiante)=1.000 -> Jose         OK
+webcam   | webcam_20261109_202040.jpg                    | P(estudiante)=0.950 -> Jose         OK
+webcam   | webcam_20261109_202330.jpg                    | P(estudiante)=0.992 -> Jose         OK
+>> webcam: 9/9 correctas
+persona  | 20240507_002032.jpg                           | P(estudiante)=0.954 -> Jose         OK
+persona  | 20241014_140932.jpg                           | P(estudiante)=0.995 -> Jose         OK
+persona  | 20241014_140935.jpg                           | P(estudiante)=0.985 -> Jose         OK
+persona  | 20241202_100611.jpg                           | P(estudiante)=0.853 -> Jose         OK
+>> persona: 4/4 correctas
+fondo    | bg_image_0027.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0034.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0076.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0081.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0162.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0174.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0182.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0355.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0370.jpg                             | P(estudiante)=0.003 -> Fondo        OK
+fondo    | bg_image_0401.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0441.jpg                             | P(estudiante)=0.002 -> Fondo        OK
+fondo    | bg_image_0453.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0465.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0466.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+fondo    | bg_image_0467.jpg                             | P(estudiante)=0.000 -> Fondo        OK
+>> fondo: 15/15 correctas
+rostros  | 678648_v9_bc.jpg                              | P(estudiante)=0.001 -> Fondo        OK
+rostros  | b2a09f300e64e08719aaa946f6ffef40.jpg          | P(estudiante)=0.066 -> Fondo        OK
+rostros  | images (1).jpeg                               | P(estudiante)=0.524 -> Fondo        OK
+rostros  | images (2).jpeg                               | P(estudiante)=0.011 -> Fondo        OK
+rostros  | images (3).jpeg                               | P(estudiante)=0.024 -> Fondo        OK
+rostros  | images (4).jpeg                               | P(estudiante)=0.014 -> Fondo        OK
+rostros  | images (5).jpeg                               | P(estudiante)=0.009 -> Fondo        OK
+rostros  | images (6).jpeg                               | P(estudiante)=0.094 -> Fondo        OK
+rostros  | images (7).jpeg                               | P(estudiante)=0.031 -> Fondo        OK
+rostros  | images.jpeg                                   | P(estudiante)=0.003 -> Fondo        OK
+rostros  | lfw_Baz_Luhrmann_0001.jpg                     | P(estudiante)=0.001 -> Fondo        OK
+rostros  | lfw_Bixente_LIzarazu_0001.jpg                 | P(estudiante)=0.004 -> Fondo        OK
+rostros  | lfw_Carlos_Barra_0001.jpg                     | P(estudiante)=0.075 -> Fondo        OK
+rostros  | lfw_Claire_Tomalin_0001.jpg                   | P(estudiante)=0.002 -> Fondo        OK
+rostros  | lfw_Dean_Barker_0001.jpg                      | P(estudiante)=0.548 -> Fondo        OK
+rostros  | lfw_Drew_Bledsoe_0001.jpg                     | P(estudiante)=0.001 -> Fondo        OK
+rostros  | lfw_Frank_Keating_0001.jpg                    | P(estudiante)=0.000 -> Fondo        OK
+rostros  | lfw_Giulietta_Masina_0001.jpg                 | P(estudiante)=0.661 -> Fondo        OK
+rostros  | lfw_Lesley_Flood_0001.jpg                     | P(estudiante)=0.001 -> Fondo        OK
+rostros  | lfw_Lucie_Lapovsky_0001.jpg                   | P(estudiante)=0.317 -> Fondo        OK
+rostros  | lfw_Nestor_Kirchner_0001.jpg                  | P(estudiante)=0.000 -> Fondo        OK
+rostros  | lfw_Philippe_Gagnon_0001.jpg                  | P(estudiante)=0.000 -> Fondo        OK
+rostros  | lfw_Pieter_Bouw_0001.jpg                      | P(estudiante)=0.001 -> Fondo        OK
+rostros  | lfw_Ryan_Newman_0001.jpg                      | P(estudiante)=0.000 -> Fondo        OK
+rostros  | lfw_Zara_Akhmadova_0001.jpg                   | P(estudiante)=0.028 -> Fondo        OK
+>> rostros: 25/25 correctas
+casos en revision_pruebas.png: 18
+presentación: D:\mcd\mcd_Fundamentos_AI\mcd_transfer_learning\datasets\presentacion\images.jpeg [[0.9975157  0.00248437]] Fondo
+presentación: D:\mcd\mcd_Fundamentos_AI\mcd_transfer_learning\datasets\presentacion\quilatoa-and-wild-flowers.jpg [[9.9999714e-01 2.8926383e-06]] Fondo
+presentación: D:\mcd\mcd_Fundamentos_AI\mcd_transfer_learning\datasets\presentacion\brave_nFwYtv53Zq.png [[0.99888724 0.00111283]] Fondo
