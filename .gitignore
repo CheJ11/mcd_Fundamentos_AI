@@ -4,3 +4,5 @@ __pycache__/
 mcd_transfer_learning/datasets/
 *.keras
 *.onnx
+mcd_nn_keras/kt_logs/
+mcd_nn_keras/logs/
