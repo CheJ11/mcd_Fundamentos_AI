@@ -6,3 +6,5 @@ mcd_transfer_learning/datasets/
 *.onnx
 mcd_nn_keras/kt_logs/
 mcd_nn_keras/logs/
+mcd_openai/.env
+mcd_openai/secrets.toml
